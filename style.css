@@ -8,10 +8,10 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
-main {
+#main {
     height: 100vh;
     height: 100svh;
     display: grid;
@@ -19,15 +19,20 @@ main {
     padding: 1em;
 }
 
-#board {
+#wrapper {
     position: relative;
-    max-width: 600px;
+    max-width: 450px;
+    width: 100%;
+    z-index: 0;
+}
+
+#board {
     aspect-ratio: 1/1;
     gap: 1em;
-    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    background-color: white;
 }
 
 #board .cell {
@@ -40,10 +45,30 @@ main {
 
 .cell {
     color: #888;
+    transition: color 0.2s ease-in, background-color 0.2s ease-in;
+}
+
+#board .cell.highlight {
+    color: white;
+    background-color: #555;
 }
 
 .result {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    transition: transform 0.5s ease-in;
+    transform: translateY(0);
+    z-index: -5;
+}
+
+.reveal.result {
+    transform: translateY(-200%);
 }
 
 .play-again {
@@ -54,12 +79,17 @@ main {
     display: flex;
     justify-content: center;
     padding: 2em;
+    transition: transform 0.5s ease-in;
+    z-index: -5;
+}
+
+.reveal.play-again {
     transform: translateY(100%);
 }
 
 button {
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-weight: 700;
     padding: 0.75em 1em;
     background-color: #eee;

@@ -1,6 +1,7 @@
+import removeHover from './removeHover.js';
+
 export default function Board() {
     const boardElement = document.getElementById('board');
-    let currentHover;
     let onClickHook;
 
     const createCircle = cellID => {
@@ -28,51 +29,71 @@ export default function Board() {
 
     let currentPlayer = createCross;
 
-    const removeInner = id => {
-        if (!id) return;
-        const element = document.getElementById(id);
-        if (!element.classList.contains('fixed')) element.innerHTML = '';
-    };
-
     const mouseOver = ({ target }) => {
-        console.log(target);
-        if (target.id == 'board') removeInner(currentHover);
+        let cell;
         if (target.classList.contains('cell')) {
-            const hover = target.id;
-            if (hover != currentHover) removeInner(currentHover);
-            currentPlayer(target.id);
-            currentHover = hover;
+            cell = target.id;
+            removeHover(cell);
+            currentPlayer(cell);
+            return;
         }
+        cell = checkForCell(target);
+        cell && removeHover(cell.id);
     };
 
-    const handleClick = ({ target }) => {
-        if (target.id == 'board') return;
+    const checkForCell = target => {
         let parent;
         if (target.nodeName == 'svg') {
             parent = target.parentNode;
         }
-        if (target.nodeName == 'path' || target.nodeName == 'circle') {
+        if (target.nodeName == 'line' || target.nodeName == 'circle') {
             parent = target.parentNode.parentNode;
         }
-        if (parent.classList.contains('fixed')) return;
+        return parent;
+    };
 
-        parent.classList.add(
-            'fixed',
-            `${currentPlayer == createCross ? 'cross' : 'circle'}`
-        );
+    const handleClick = ({ target }) => {
+        if (target.id == 'board') return;
+
+        const parent = checkForCell(target);
+
+        if (parent && parent.classList.contains('fixed')) return;
+
+        const shape = currentPlayer == createCross ? 'cross' : 'circle';
+
+        parent && parent.classList.add('fixed', `${shape}`);
 
         currentPlayer =
             currentPlayer == createCross ? createCircle : createCross;
 
-        onClickHook && onClickHook();
+        onClickHook && onClickHook(shape);
     };
 
     this.setOnClickHook = func => (onClickHook = func);
 
+    this.enable = () => {
+        currentPlayer = createCross;
+        boardElement.addEventListener('click', handleClick);
+        boardElement.addEventListener('mouseover', mouseOver);
+    };
+
+    this.stop = () => {
+        boardElement.removeEventListener('click', handleClick);
+        boardElement.removeEventListener('mouseover', mouseOver);
+    };
+
     boardElement.addEventListener('mouseover', mouseOver);
-    boardElement.addEventListener('click', handleClick);
+
+    this.enable();
 
     document.getElementById('main').addEventListener('mouseover', e => {
-        if (e.target.id == 'main') removeInner(currentHover);
+        if (e.target.id == 'main') removeHover();
     });
+
+    document
+        .querySelector('.result')
+        .addEventListener('mouseover', () => removeHover());
+    document
+        .querySelector('.play-again')
+        .addEventListener('mouseover', () => removeHover());
 }
