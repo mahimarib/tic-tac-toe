@@ -86,11 +86,13 @@ export default function Board() {
     this.enable = () => {
         currentPlayer = createCross;
         boardElement.addEventListener('click', handleClick);
+        boardElement.addEventListener('touchstart', handleClick);
         boardElement.addEventListener('mouseover', mouseOver);
     };
 
     this.stop = () => {
         boardElement.removeEventListener('click', handleClick);
+        boardElement.removeEventListener('touchstart', handleClick);
         boardElement.removeEventListener('mouseover', mouseOver);
     };
 
