@@ -25,7 +25,6 @@ document.querySelector('button').addEventListener('click', () => {
         cell.innerHTML = ``;
     });
     document.querySelector('.play-again').classList.remove('reveal');
-    const result = document.querySelector('.result');
-    result.classList.remove('reveal');
+    document.querySelector('.result').classList.remove('reveal');
     board.enable();
 });
