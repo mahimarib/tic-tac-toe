@@ -1,6 +1,6 @@
 export default function removeHover(exclude = '') {
-    const cellsSVG = document.querySelectorAll('.cell:not(.fixed)');
-    Array.from(cellsSVG)
+    const cells = document.querySelectorAll('.cell:not(.fixed)');
+    Array.from(cells)
         .filter(c => c.id != exclude)
         .forEach(c => (c.innerHTML = ''));
 }
