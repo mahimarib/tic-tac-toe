@@ -1,21 +1,15 @@
 import Board from './module/Board.js';
 import checkDraw from './module/checkDraw.js';
 import checkWin from './module/checkWin.js';
+import gameEnd from './module/gameEnd.js';
 
-const board = new Board();
+export const board = new Board();
 
 board.setOnClickHook(shape => {
-    const result = document.querySelector('.result');
     if (checkWin(shape)) {
-        result.textContent = `${shape == 'cross' ? 'X' : 'O'} wins!`;
-        document.querySelector('.play-again').classList.add('reveal');
-        result.classList.add('reveal');
-        board.stop();
+        gameEnd(`${shape == 'cross' ? 'X' : 'O'} wins!`);
     } else if (checkDraw()) {
-        result.textContent = `it's a draw!`;
-        document.querySelector('.play-again').classList.add('reveal');
-        result.classList.add('reveal');
-        board.stop();
+        gameEnd("It's a Draw!");
     }
 });
 
