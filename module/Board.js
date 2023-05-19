@@ -6,7 +6,7 @@ export default function Board() {
 
     const createCircle = cellID => {
         const html = `
-        <svg class="circle" viewBox="0 0 100 100">
+        <svg class="circle" viewBox="0 0 100 100" width="100%">
             <circle
                 cx="50"
                 cy="50"
@@ -19,7 +19,7 @@ export default function Board() {
 
     const createCross = cellID => {
         const html = `
-        <svg class="cross" viewBox="0 0 100 100">
+        <svg class="cross" viewBox="0 0 100 100" width="100%">
             <line x1=20 y1=20 x2=80 y2=80 class="first-line"></line>
             <line x1=80 y1=20 x2=20 y2=80 class="second-line"></line>
         </svg>
@@ -94,9 +94,9 @@ export default function Board() {
         boardElement.removeEventListener('mouseover', mouseOver);
     };
 
-    boardElement.addEventListener('mouseover', mouseOver);
-
     this.enable();
+
+    boardElement.addEventListener('mouseover', mouseOver);
 
     document.getElementById('main').addEventListener('mouseover', e => {
         if (e.target.id == 'main') removeHover();
@@ -105,6 +105,7 @@ export default function Board() {
     document
         .querySelector('.result')
         .addEventListener('mouseover', () => removeHover());
+
     document
         .querySelector('.play-again')
         .addEventListener('mouseover', () => removeHover());
