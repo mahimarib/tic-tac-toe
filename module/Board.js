@@ -6,7 +6,7 @@ export default function Board() {
 
     const createCircle = cellID => {
         const html = `
-        <svg class="circle" viewBox="0 0 100 100" width="100%" transform="rotate(-90)">
+        <svg class="circle" viewBox="0 0 100 100" width="100%">
             <circle
                 cx="50"
                 cy="50"

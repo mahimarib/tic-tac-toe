@@ -107,6 +107,11 @@ button:hover {
     background-color: #555;
 }
 
+.circle svg {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
 circle,
 line {
     stroke: currentColor;
