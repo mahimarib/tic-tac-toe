@@ -43,7 +43,7 @@ export default function Board() {
     };
 
     const checkForCell = target => {
-        let parent;
+        let parent = null;
         if (target.nodeName == 'svg') {
             parent = target.parentNode;
         }
@@ -53,19 +53,30 @@ export default function Board() {
         return parent;
     };
 
+    const isCellEmpty = element =>
+        element.classList.contains('cell') &&
+        !element.classList.contains('fixed');
+
     const handleClick = ({ target }) => {
         if (target.id == 'board') return;
 
-        const parent = checkForCell(target);
+        let cell;
 
-        if (parent && parent.classList.contains('fixed')) return;
+        cell = isCellEmpty(target) ? target : null;
 
-        const shape = currentPlayer == createCross ? 'cross' : 'circle';
+        let parent = checkForCell(target);
 
-        parent && parent.classList.add('fixed', `${shape}`);
+        cell = parent && isCellEmpty(parent) ? parent : cell;
+
+        if (!cell) return;
+
+        const shape = currentPlayer == createCircle ? 'circle' : 'cross';
+        cell.classList.add(shape, 'fixed');
+
+        currentPlayer(cell.id);
 
         currentPlayer =
-            currentPlayer == createCross ? createCircle : createCross;
+            currentPlayer == createCircle ? createCross : createCircle;
 
         onClickHook && onClickHook(shape);
     };
