@@ -18,6 +18,7 @@ document.querySelector('button').addEventListener('click', () => {
         cell.classList.remove('fixed', 'circle', 'cross', 'highlight');
         cell.innerHTML = ``;
     });
+
     document.querySelector('.play-again').classList.remove('reveal');
     document.querySelector('.result').classList.remove('reveal');
     board.enable();
