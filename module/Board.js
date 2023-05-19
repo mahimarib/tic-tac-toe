@@ -31,6 +31,7 @@ export default function Board() {
 
     const mouseOver = ({ target }) => {
         let cell;
+        if (target.id == 'board') removeHover();
         if (target.classList.contains('cell')) {
             cell = target.id;
             removeHover(cell);
