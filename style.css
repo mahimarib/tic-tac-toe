@@ -149,13 +149,13 @@ line {
 }
 
 .fixed circle {
-    animation: draw 1.5s linear;
+    animation: draw 1s linear;
 }
 
 .fixed .first-line {
-    animation: draw 1s ease-in;
+    animation: draw 0.5s ease-in;
 }
 
 .fixed .second-line {
-    animation: secondLine 1s ease-in;
+    animation: secondLine 0.5s ease-in;
 }
