@@ -7,11 +7,7 @@ export default function Board() {
     const createCircle = cellID => {
         const html = `
         <svg class="circle" viewBox="0 0 100 100" width="100%">
-            <circle
-                cx="50"
-                cy="50"
-                r="35"
-            ></circle>
+            <circle cx="50" cy="50" r="35"></circle>
         </svg>
         `;
         document.getElementById(cellID).innerHTML = html;
@@ -30,27 +26,11 @@ export default function Board() {
     let currentPlayer = createCross;
 
     const mouseOver = ({ target }) => {
-        let cell;
         if (target.id == 'board') removeHover();
-        if (target.classList.contains('cell')) {
-            cell = target.id;
-            removeHover(cell);
-            currentPlayer(cell);
-            return;
+        if (isCellEmpty(target)) {
+            removeHover(target.id);
+            currentPlayer(target.id);
         }
-        cell = checkForCell(target);
-        cell && removeHover(cell.id);
-    };
-
-    const checkForCell = target => {
-        let parent = null;
-        if (target.nodeName == 'svg') {
-            parent = target.parentNode;
-        }
-        if (target.nodeName == 'line' || target.nodeName == 'circle') {
-            parent = target.parentNode.parentNode;
-        }
-        return parent;
     };
 
     const isCellEmpty = element =>
@@ -60,20 +40,12 @@ export default function Board() {
     const handleClick = ({ target }) => {
         if (target.id == 'board') return;
 
-        let cell;
-
-        cell = isCellEmpty(target) ? target : null;
-
-        let parent = checkForCell(target);
-
-        cell = parent && isCellEmpty(parent) ? parent : cell;
+        let cell = isCellEmpty(target) ? target : null;
 
         if (!cell) return;
 
         const shape = currentPlayer == createCircle ? 'circle' : 'cross';
         cell.classList.add(shape, 'fixed');
-
-        currentPlayer(cell.id);
 
         currentPlayer =
             currentPlayer == createCircle ? createCross : createCircle;

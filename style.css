@@ -112,8 +112,13 @@ button:hover {
     transform: rotate(-90deg);
 }
 
+svg {
+    pointer-events: none;
+}
+
 circle,
 line {
+    pointer-events: none;
     stroke: currentColor;
     stroke-width: 5px;
     fill: none;
