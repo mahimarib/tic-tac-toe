@@ -27,20 +27,20 @@ export default function Board() {
 
     const mouseOver = ({ target }) => {
         if (target.id == 'board') removeHover();
-        if (isCellEmpty(target)) {
+        if (isEmptyCell(target)) {
             removeHover(target.id);
             currentPlayer(target.id);
         }
     };
 
-    const isCellEmpty = element =>
+    const isEmptyCell = element =>
         element.classList.contains('cell') &&
         !element.classList.contains('fixed');
 
     const handleClick = ({ target }) => {
         if (target.id == 'board') return;
 
-        let cell = isCellEmpty(target) ? target : null;
+        let cell = isEmptyCell(target) ? target : null;
 
         if (!cell) return;
 
