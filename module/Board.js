@@ -27,9 +27,9 @@ export default function Board() {
 
     const mouseOver = ({ target }) => {
         if (target.id == 'board') removeHover();
-        if (isEmptyCell(target)) {
+        if (target.classList.contains('cell')) {
             removeHover(target.id);
-            currentPlayer(target.id);
+            !target.classList.contains('fixed') && currentPlayer(target.id);
         }
     };
 
