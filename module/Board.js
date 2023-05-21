@@ -47,6 +47,9 @@ export default function Board() {
         const shape = currentPlayer == createCircle ? 'circle' : 'cross';
         cell.classList.add(shape, 'fixed');
 
+        // draw shape just in case
+        currentPlayer(cell.id);
+
         currentPlayer =
             currentPlayer == createCircle ? createCross : createCircle;
 
